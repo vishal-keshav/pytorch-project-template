@@ -29,6 +29,9 @@ class model(nn.Module):
     def forward_inference(self, x):
         raise NotImplementedError
 
+    def get_name(self):
+        return "default_model"
+
 #################################### Test ######################################
 def test():
     m = model()

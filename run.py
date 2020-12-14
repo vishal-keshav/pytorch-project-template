@@ -10,8 +10,15 @@ import importlib
 from utils.generic_utils import get_configurations
 from utils.logger_utils import get_logger
 
+# Imports for deterministic behavior
+import random
+import numpy as np
+import torch
+
 def argument_parser():
     parser = argparse.ArgumentParser(description="sample")
+    parser.add_argument('--seed', default=0, type=int,
+                        help='seeds for deterministic runtime')
     parser.add_argument('--config', default='default', type=str,
                         help='configuration file name')
     parser.add_argument('--trainer', default='default', type=str,
@@ -29,8 +36,15 @@ def argument_parser():
     args = parser.parse_args()
     return args
 
+def set_seed(seed):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.set_deterministic(True)
+
 def main():
     args = argument_parser()
+    set_seed(args.seed)
     config_module = importlib.import_module("configs."+args.config)
     model_def = importlib.import_module("model."+args.model).model
     dataset = importlib.import_module("dataset."+args.dataset).dataset

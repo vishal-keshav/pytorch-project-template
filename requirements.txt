@@ -7,3 +7,4 @@ uuid
 comet_ml
 argparse==1.4.0
 importlib==1.0.4
+tqdm

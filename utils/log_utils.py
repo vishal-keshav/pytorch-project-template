@@ -7,7 +7,7 @@ class logger:
     All loggers implements the method of this class
     """
     def __init__(self, **kwargs):
-        self.exp_name = kwargs.get('exp_name', uuid.uuid1())
+        self.exp_name = kwargs.get('exp_name', str(uuid.uuid1()))
     
     def set_exp_name(self, exp_name):
         self.exp_name = exp_name
