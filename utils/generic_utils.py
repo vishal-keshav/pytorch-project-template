@@ -36,3 +36,34 @@ def get_configurations(configs):
 
     recursive_config_list_builder(0, dict(), config_keys)
     return all_configs
+
+def stringify(vals):
+    """Return a string version of vals (a list of object implementing __str__)
+
+    Args:
+        vals (List[any]): List of object that implements __str__
+
+    Returns:
+        str: A string representation
+    """
+    if type(vals) == list:
+        return '_'.join([str(e) for e in vals])
+    else:
+        return str(vals)
+
+def valuefy(strings, type_cast=None):
+    """Return a list of value, type casted by type_cast list
+    
+    Args:
+        strings (str): A string with value seperated by '_'
+        type_cast (List[types]): A list with type for each elements
+    
+    Returns:
+        List[any]: A list of values typecasted by type_cast array elements.
+                   If type_cast is None, all elements are type casted to int.
+    """
+    vals_string = strings.split('_')
+    if type_cast is None:
+        type_cast = [int]*len(vals_string)
+    assert len(vals_string) == len(type_cast)
+    return [t(e) for e, t in zip(vals_string, type_cast)]
