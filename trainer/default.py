@@ -77,13 +77,10 @@ def test():
     config = {'learning_rate': 0.001,
               'nr_epochs': 5,
               'batch_size': 128}
-    #sys.path.append(os.path.abspath('.'))
-    #from model.mlp_multitask import model as model_def
-    #from dataset.mnist_split5 import dataset
     from model.default import model as model_def
     from dataset.default import dataset
-    from utils.log_utils import print_logger
-    experiment = print_logger()
+    from utils.log_utils import file_logger
+    experiment = file_logger()
     train(config, model_def, dataset, experiment)
 
 if __name__ == "__main__":

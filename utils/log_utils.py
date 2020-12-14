@@ -34,6 +34,17 @@ class logger:
         """
         print(msg)
 
+class no_logger(logger):
+    """This is no logger version that mocks the logger but does nothing.
+    """
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+    
+    def log(self, tag, value, **kwargs):
+        pass
+
+    def info(self, msg, **kwargs):
+        pass
 
 class print_logger(logger):
     """A simple print based logger.
@@ -88,10 +99,15 @@ class chained_loggers(logger):
         self.loggers.append(l)
 
 def get_logger(args):
-    if args.logger is None: return None
+    if args.logger is None: return no_logger()
     if args.logger == 'print':
         return print_logger()
     if args.logger == 'file':
         return file_logger()
     if args.logger == 'comet':
         return comet_logger(api_key=args.api_key)
+    if args.logger == 'print_file':
+        l = chained_loggers()
+        l.add_logger(print_logger())
+        l.add_logger(file_logger())
+        return l

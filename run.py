@@ -8,7 +8,7 @@ import argparse
 import importlib
 
 from utils.generic_utils import get_configurations
-from utils.logger_utils import get_logger
+from utils.log_utils import get_logger
 
 # Imports for deterministic behavior
 import random
@@ -32,7 +32,6 @@ def argument_parser():
                         help='logger choices')
     parser.add_argument('--key', default='', type=str,
                         help='used if logger is set to comet')
-    parser.add_argument()
     args = parser.parse_args()
     return args
 
@@ -49,7 +48,7 @@ def main():
     model_def = importlib.import_module("model."+args.model).model
     dataset = importlib.import_module("dataset."+args.dataset).dataset
     train = importlib.import_module("trainer."+args.trainer).train
-    logger = get_logger(args.logger)
+    logger = get_logger(args)
 
     tried_configs = []
     end = False
