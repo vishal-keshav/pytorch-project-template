@@ -28,7 +28,7 @@ def argument_parser():
     parser.add_argument('--model', default='default', type=str,
                         help='model file name')
     parser.add_argument('--logger', default=None, type=str,
-                        choices=[None, 'print', 'comet'],
+                        choices=[None, 'print', 'file', 'comet', 'print_file'],
                         help='logger choices')
     parser.add_argument('--key', default='', type=str,
                         help='used if logger is set to comet')
